@@ -19,6 +19,7 @@ export function Home() {
 
   return (
     <div className="flex flex-col gap-24 md:gap-32 pb-24">
+      <ContactSection />
       <Hero />
       <ProjectGrid projects={featuredProjects} />
       <ExperienceTimeline experiences={visibleExperiences} />
