@@ -87,4 +87,6 @@ export interface Profile {
   email: string;
   github: string;
   linkedin: string;
+  telegram?: string;
+  whatsapp?: string; 
 }

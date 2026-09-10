@@ -6,7 +6,7 @@ export function RootLayout() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans flex flex-col">
       <Navbar />
-      <main className="flex-grow pt-16">
+      <main className="flex-grow lg:mt-30">
         <Outlet />
       </main>
       <Footer />

@@ -42,6 +42,7 @@ export const projects: Project[] = [
     featured: true,
     visible: true,
     order: 1,
+    demoUrl: "https://iotbridging.tech/",
     metrics: [
       { label: "Sandbox stress test", value: "5,000+ records/sec" },
       { label: "Architectural target", value: "~50k rows/sec" }

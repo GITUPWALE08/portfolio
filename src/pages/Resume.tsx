@@ -10,22 +10,27 @@ export function Resume() {
   const frontendSkills = skills.filter(s => s.category === 'Frontend').map(s => s.name);
   const otherSkills = skills.filter(s => s.category !== 'Frontend' && s.category !== 'Backend & Systems' && s.category !== 'Databases').map(s => s.name);
 
+  const handleDownload = () => {
+    const originalTitle = document.title;
+    document.title = 'adegokeadewale_resume';
+    window.print();
+    document.title = originalTitle;
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4 no-print">
         <SectionHeader title="Resume" />
-        <a 
-          href="/resume.pdf" // Placeholder for actual resume file
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-6 py-2.5 text-sm font-medium transition-colors hover:bg-accent/90 shrink-0"
+        <button 
+          onClick={handleDownload}
+          className="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-6 py-2.5 text-sm font-medium transition-colors hover:bg-accent/90 shrink-0 cursor-pointer"
         >
           <Download className="mr-2 h-4 w-4" />
           Download Resume
-        </a>
+        </button>
       </div>
 
-      <div className="bg-surface border border-border rounded-xl p-8 md:p-12 shadow-sm">
+      <div id="resume-content" className="bg-surface border border-border rounded-xl p-8 md:p-12 shadow-sm">
         <div className="border-b border-border pb-8 mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">{profile.name}</h1>
           <p className="text-xl text-muted-foreground mb-4">{profile.title}</p>
@@ -35,6 +40,12 @@ export function Resume() {
             <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-foreground">github.com/GITUPWALE08</a>
             <span>•</span>
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground">linkedin.com/in/adegoke-adewale</a>
+            {profile.telegram && (
+              <>
+                <span>•</span>
+                <a href={profile.telegram} target="_blank" rel="noreferrer" className="hover:text-foreground">t.me/GITUPWALE08</a>
+              </>
+            )}
           </div>
         </div>
 

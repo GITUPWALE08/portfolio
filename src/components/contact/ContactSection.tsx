@@ -1,5 +1,5 @@
 import { Mail } from 'lucide-react';
-import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../common/Icons';
+import { GithubIcon as Github, LinkedinIcon as Linkedin, TelegramIcon as Telegram } from '../common/Icons';
 import { profile } from '../../data/profile';
 import myImage from '../../assets/my_image.png';
 
@@ -18,7 +18,7 @@ export function ContactSection() {
               <img 
                 src={myImage} 
                 alt={`${profile.name} - ${profile.title}`} 
-                className="w-full h-full object-cover object-center bg-muted"
+                className="w-full h-full object-cover object-top bg-muted"
               />
             </div>
           </div>
@@ -67,6 +67,18 @@ export function ContactSection() {
                 <Linkedin width={16} height={16} className="mr-2" /> 
                 LinkedIn
               </a>
+
+              {profile.telegram && (
+                <a 
+                  href={profile.telegram} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="inline-flex items-center justify-center rounded-md border border-border bg-transparent px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Telegram width={16} height={16} className="mr-2" /> 
+                  Telegram
+                </a>
+              )}
             </div>
           </div>
 

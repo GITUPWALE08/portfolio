@@ -19,13 +19,12 @@ export function Home() {
 
   return (
     <div className="flex flex-col gap-24 md:gap-32 pb-24">
-      <ContactSection />
       <Hero />
+      <About />
       <ProjectGrid projects={featuredProjects} />
       <ExperienceTimeline experiences={visibleExperiences} />
       <SkillGroup skills={skills} />
       <ServicesSection services={services} />
-      <About />
       <EducationSection education={education} certifications={certifications} />
       <ContactSection />
     </div>

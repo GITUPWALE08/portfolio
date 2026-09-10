@@ -1,14 +1,1 @@
-Update the portfolio hero/contact section to use the image asset named `my_image.png`.
-
-Create a clean two-column flexbox layout:
-- Left: my professional profile picture (`my_image`), neatly cropped and styled.
-- Right: my name, professional title, email, GitHub, LinkedIn, and other relevant social/contact links.
-
-Use:
-Name: Adegoke Adewale Idris
-Title: Systems & Automation Engineer
-Email: princeadewale391@gmail.com
-GitHub: https://github.com/GITUPWALE08/
-LinkedIn: https://linkedin.com/in/adegoke-adewale/
-
-Make the layout modern, minimal, professional, responsive, and consistent with the existing portfolio design. On mobile, stack the two columns vertically.
+- do you have info on the link to each project?

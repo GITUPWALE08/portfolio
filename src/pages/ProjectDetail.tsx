@@ -23,7 +23,7 @@ export function ProjectDetail() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
-      <Link to="/#work" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground mb-8 transition-colors">
+      <Link to="/#projects" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground mb-8 transition-colors">
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Work
       </Link>
