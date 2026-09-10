@@ -5,7 +5,7 @@ import { SkillGroup } from '../components/skills/SkillGroup';
 import { ServicesSection } from '../components/services/ServicesSection';
 import { About } from '../components/about/About';
 import { EducationSection } from '../components/education/EducationSection';
-import { ContactSection } from '../components/contact/ContactSection';
+// import { ContactSection } from '../components/contact/ContactSection';
 import { projects } from '../data/projects';
 import { experiences } from '../data/experience';
 import { skills } from '../data/skills';
