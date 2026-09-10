@@ -1,0 +1,1746 @@
+Portfolio Website — Implementation Specification
+1. Project Overview
+
+Project name: Adegoke Adewale Idris — Engineering Portfolio
+
+Portfolio domain: adegoke-adewale-idris.me
+
+Primary identity:
+
+Systems & Automation Engineer
+
+Core positioning:
+
+I build real-world products and the systems behind them.
+
+The portfolio should demonstrate engineering ability through actual projects, architecture, technical decisions, and working systems rather than relying on generic claims.
+
+The website should communicate three things within the first few seconds:
+
+I build real-world products.
+I can work on complex backend/system architecture.
+I am particularly interested in automation, IoT, real-time systems, and backend engineering.
+2. Primary Objectives
+
+The portfolio must:
+
+Present Adegoke as a Systems & Automation Engineer.
+Showcase substantial engineering projects.
+Make complex projects understandable to recruiters without oversimplifying them.
+Allow technical visitors to inspect architecture and engineering decisions.
+Provide clear evidence of practical engineering ability.
+Function as a professional resume/portfolio.
+Make contacting Adegoke extremely easy.
+Allow new projects, experience, skills, certifications, etc. to be added without modifying page components.
+Remain lightweight and fast.
+Avoid unnecessary backend infrastructure.
+Work well on mobile and desktop.
+Support dark and light themes.
+Use subtle, professional animations.
+Avoid looking like a generic developer portfolio template.
+3. Target Audience
+
+Priority order:
+
+1. Recruiters
+
+They should quickly understand:
+
+who Adegoke is;
+what he does;
+what technologies he uses;
+what he has built;
+where he has worked;
+how to contact him.
+2. Companies hiring interns/junior engineers
+
+The site should demonstrate practical engineering ability beyond coursework.
+
+3. Startup founders
+
+They should understand that Adegoke can take a system from:
+
+idea → architecture → implementation → deployment
+
+4. Engineering collaborators
+
+Technical visitors should be able to inspect project architecture and engineering decisions.
+
+4. Professional Positioning
+
+Do not position the website primarily as:
+
+Frontend Developer
+UI Developer
+Web Designer
+Generic Full-Stack Developer
+
+Those are capabilities, not the primary identity.
+
+The primary positioning should be:
+
+Systems & Automation Engineer
+
+Supporting areas:
+
+Backend Engineering
+Automation Engineering
+IoT Systems
+Real-Time Systems
+Full-Stack Product Engineering
+API/System Design
+Event-Driven Architecture
+5. Design Direction
+Visual identity
+
+The design should combine:
+
+Modern engineering + industrial systems + minimalism
+
+It should feel closer to an engineering/product interface than a conventional portfolio template.
+
+Characteristics
+clean;
+technical;
+restrained;
+modern;
+spacious;
+strong typography;
+subtle grid/system motifs;
+minimal decorative elements;
+professional motion.
+
+Avoid:
+
+excessive gradients;
+excessive glassmorphism;
+huge floating 3D objects;
+excessive glowing effects;
+generic developer illustrations;
+animated code rain;
+excessive card shadows;
+unnecessary UI decoration.
+6. Theme
+
+Support:
+
+Dark mode
+Light mode
+
+Default: Dark mode.
+
+Theme preference should persist locally.
+
+Use CSS variables/design tokens rather than duplicating styles between themes.
+
+7. Technology Stack
+Frontend
+React
+TypeScript
+Vite
+Tailwind CSS
+Framer Motion
+
+Do not use Next.js.
+
+The portfolio does not need SSR or a full-stack framework.
+
+Deployment
+Vercel
+
+The implementation should not spend development effort on domain/hosting configuration.
+
+Content
+
+Version-controlled TypeScript/JSON data.
+
+No CMS or database for v1.
+
+8. Content Architecture
+
+The website must be data-driven.
+
+Components should not contain hardcoded project/experience/skill information.
+
+Recommended structure:
+
+src/
+├── components/
+│   ├── layout/
+│   ├── navigation/
+│   ├── hero/
+│   ├── projects/
+│   ├── experience/
+│   ├── skills/
+│   ├── services/
+│   ├── about/
+│   ├── education/
+│   ├── contact/
+│   └── common/
+│
+├── data/
+│   ├── profile.ts
+│   ├── projects.ts
+│   ├── experience.ts
+│   ├── skills.ts
+│   ├── education.ts
+│   ├── certifications.ts
+│   └── services.ts
+│
+├── pages/
+│   ├── Home.tsx
+│   ├── ProjectDetail.tsx
+│   └── Resume.tsx
+│
+├── hooks/
+├── lib/
+├── types/
+├── assets/
+├── styles/
+└── App.tsx
+9. Dynamic Content Principle
+
+Adding a project should require adding an object to:
+
+src/data/projects.ts
+
+It should not require modifying:
+
+homepage components;
+routing logic;
+project cards;
+project detail components.
+
+The same principle applies to:
+
+experience;
+skills;
+education;
+certifications;
+services.
+10. Project Data Model
+
+Each project should support approximately:
+
+interface Project {
+  id: string;
+  slug: string;
+
+  title: string;
+  shortTitle?: string;
+
+  category: string;
+
+  summary: string;
+
+  description: string;
+
+  role: string;
+
+  problem: string;
+
+  solution: string;
+
+  features: string[];
+
+  engineeringWork: string[];
+
+  challenges: string[];
+
+  lessons: string[];
+
+  architecture?: string;
+
+  technologies: {
+    category: string;
+    items: string[];
+  }[];
+
+  status: "active" | "completed" | "prototype" | "in-progress";
+
+  visibility: "public" | "partial" | "private";
+
+  featured: boolean;
+
+  visible: boolean;
+
+  order: number;
+
+  demoUrl?: string;
+
+  githubUrl?: string;
+
+  documentationUrl?: string;
+
+  client?: boolean;
+
+  images?: string[];
+
+  metrics?: {
+    label: string;
+    value: string;
+    context?: string;
+  }[];
+}
+11. Project Ordering
+
+Projects must support manual ordering:
+
+order: 1
+
+The UI should sort by order.
+
+Also support:
+
+featured: true
+visible: true
+
+This means the portfolio owner can control what appears without changing UI code.
+
+Example:
+
+{
+  id: "iot-bridge",
+  order: 1,
+  featured: true,
+  visible: true
+}
+12. Projects To Include
+
+The initial portfolio should contain these seven projects.
+
+12.1 High-Frequency IIoT Telemetry Bridge v2.0
+
+URL:
+
+https://iotbridging.tech
+
+Positioning:
+
+Lead Systems Architect + Full-Stack Engineer
+
+Primary importance: VERY HIGH
+
+This should be one of the strongest projects on the portfolio because it directly represents the desired systems-engineering identity.
+
+Description
+
+An event-driven industrial IoT middleware platform designed to ingest, buffer, process, store, and visualize high-frequency machine telemetry with minimal latency.
+
+Engineering themes
+event-driven architecture;
+Redis Streams;
+HTTP/MQTT ingestion;
+telemetry buffering;
+TimescaleDB;
+WebSockets;
+real-time dashboards;
+background processing;
+authentication caching;
+fault tolerance;
+industrial telemetry.
+Important metrics
+
+Present carefully.
+
+Use:
+
+5,000+ records/sec — sandbox stress test
+
+rather than implying production throughput.
+
+Where appropriate:
+
+~50k rows/sec — architectural target
+
+Do not represent architectural targets as proven production performance.
+
+Key architecture
+IoT Device
+    │
+    ├── HTTP
+    └── MQTT
+         │
+         ▼
+   Ingestion Layer
+         │
+         ▼
+   Redis Streams
+         │
+         ▼
+ Background Workers
+         │
+    ┌────┴─────┐
+    ▼          ▼
+TimescaleDB   WebSocket
+    │          │
+    │          ▼
+    │       Dashboard
+    │
+    ▼
+ Analytics / APIs
+Technologies
+React
+TypeScript
+Tailwind
+WebSockets
+Lightweight Charts
+Python
+Django
+DRF
+Daphne
+Celery
+PostgreSQL
+TimescaleDB
+Redis Streams
+Mosquitto MQTT
+Docker Compose
+Pydantic
+orjson
+cachetools
+Gemini
+Engineering challenges
+ingestion overhead;
+persistent connections;
+MQTT QoS;
+Redis memory management;
+poison-pill messages;
+schema drift;
+dead-letter handling;
+worker batching;
+authentication lookup performance.
+Portfolio emphasis
+
+This project should visually and textually communicate:
+
+"This person thinks about systems, not just interfaces."
+
+12.2 Entercom Security Systems Platform
+
+URL:
+
+https://entercom-v1.vercel.app/
+
+Role:
+
+Full-Stack Engineer / Systems Design Engineer
+
+Status:
+
+Active client project
+
+Description
+
+A full-stack security and smart-home service platform connecting customers with security-system and home-automation services while managing the complete operational lifecycle from service requests and quotations through payment, technician assignment, verification and support.
+
+Major features
+service request lifecycle;
+quotation workflow;
+quote approval/revision;
+payment;
+technician assignment;
+technician jobs;
+customer portal;
+technician portal;
+staff/manager/admin portals;
+product catalog;
+inventory;
+orders;
+Paystack payments;
+webhook verification;
+real-time notifications;
+support chat;
+attachments;
+internal notes;
+technician recruitment;
+verification/inspection;
+SLA tracking;
+escalation;
+immutable audit logs;
+analytics;
+mobile application.
+Architecture
+Customer / Staff / Technician
+             │
+             ▼
+       React / Expo
+             │
+          REST API
+             │
+             ▼
+       Django / DRF
+             │
+     ┌───────┼────────┐
+     ▼       ▼        ▼
+ PostgreSQL Redis   Celery
+     │       │        │
+     │       ▼        ▼
+     │   WebSockets Background Jobs
+     │
+     ▼
+ Payment / Audit / Workflow Systems
+Engineering emphasis
+state-driven workflows;
+service layer;
+domain boundaries;
+RBAC;
+JWT;
+auditability;
+payment integrity;
+webhook idempotency;
+partial payments;
+background processing;
+real-time communication.
+12.3 Entercom Security Systems Website
+
+URL:
+
+https://www.entercomsecurity.com/
+
+Role:
+
+IT Infrastructure & Frontend Developer
+
+Description
+
+Corporate website and digital presence for Entercom Security, covering security systems, smart-home security and structured cabling while generating leads.
+
+Engineering emphasis
+
+This project should NOT be presented as simply "I built a website."
+
+Highlight:
+
+frontend implementation;
+Vercel deployment;
+Hostinger DNS;
+domain architecture;
+corporate email;
+DNS troubleshooting;
+MX records;
+SPF;
+A/CNAME records;
+separation of web and email infrastructure.
+Stack
+React/Next.js
+Tailwind
+Vercel
+Hostinger
+Titan Email
+DNS
+12.4 Drool NFT Whitelist Platform
+
+URL:
+
+https://droolnft.vercel.app/
+
+Role:
+
+Lead Frontend Developer
+
+Description
+
+A Web3 NFT whitelist platform designed for high-volume wallet registration and engagement collection.
+
+Key engineering points
+MetaMask;
+Ethereum wallets;
+Supabase PostgreSQL;
+duplicate prevention;
+unique database constraints;
+paginated exports;
+1,000-record chunks;
+browser memory management;
+admin dashboard;
+Vercel static deployment;
+Web3 state handling.
+Important positioning
+
+Emphasize:
+
+Designed for a whitelist campaign targeting 40,000+ users.
+
+Do not claim 40,000 concurrent users were actually achieved unless independently verified.
+
+12.5 RBAC Visualizer
+
+URL:
+
+https://wexa-psi.vercel.app/
+
+Role:
+
+Full-Stack Developer
+
+Description
+
+A full-stack application for visualizing role-based access control hierarchies using a graph database.
+
+Key concept
+User
+ │
+ ▼
+Role
+ │
+ ▼
+Permission
+
+with multi-hop relationships represented as graph traversals.
+
+Engineering emphasis
+graph data modelling;
+Neo4j/CognoDB;
+Cypher;
+parameterized queries;
+Flask;
+React;
+minimal architecture;
+rapid implementation;
+complex relationship querying.
+Important context
+
+This was a technical assessment/take-home project for Wexa AI.
+
+12.6 Finance Trading Platform
+
+URL:
+
+Use the verified URL:
+
+https://finance-three-sepia.vercel.app/
+
+The initial URL supplied earlier contained financa, which returned 404. The portfolio should use the corrected finance spelling unless the actual deployed URL differs.
+
+Role
+
+Full-Stack Developer
+
+Description
+
+A stock-trading simulation platform implementing live quotes, buying/selling, portfolio tracking and transaction history through a decoupled frontend/backend architecture.
+
+Engineering emphasis
+REST API;
+React/TypeScript;
+Python;
+SQLAlchemy;
+PostgreSQL;
+atomic database operations;
+transaction integrity;
+rollback;
+concurrent operations;
+client/server debugging.
+Architecture
+React / TypeScript
+        │
+        ▼
+     REST API
+        │
+        ▼
+ Python Backend
+        │
+        ▼
+   SQLAlchemy
+        │
+        ▼
+   PostgreSQL
+12.7 ESDAN
+
+URL:
+
+https://esdan.vercel.app/
+
+Role:
+
+Frontend Developer
+
+Description
+
+Corporate web application for the Economic and Social Development Association of Nigeria, presenting economic/social programs alongside a commercial solar-tricycle catalogue.
+
+Engineering emphasis
+React architecture;
+responsive sidebar;
+modular components;
+dynamic routing;
+product/project data separation;
+quote requests;
+Vercel SPA routing;
+vercel.json;
+scroll/hash behaviour.
+13. Project Visibility
+
+Projects should have visibility controls.
+
+Use:
+
+visibility: "public"
+visibility: "partial"
+visibility: "private"
+
+For private/client work:
+
+do not expose confidential architecture;
+do not expose sensitive implementation details;
+do not expose private source code;
+do not expose internal documentation;
+only show information safe for public portfolio use.
+
+For IoT Bridge especially, distinguish between:
+
+implemented;
+tested;
+designed;
+planned;
+architectural target.
+
+The portfolio must never turn a design target into a claimed production result.
+
+14. Home Page
+
+The homepage should be a polished single-page experience.
+
+Structure:
+
+Navbar
+
+Hero
+
+Selected Work
+
+Engineering Experience
+
+Systems & Skills
+
+What I Build
+
+About
+
+Education & Certifications
+
+Contact
+
+Footer
+15. Hero Section
+
+Primary heading:
+
+SYSTEMS & AUTOMATION ENGINEER
+
+Primary statement:
+
+I build real-world products and the systems behind them.
+
+Supporting text:
+
+Backend systems • Automation • IoT • Real-time infrastructure
+
+CTA buttons:
+
+View Selected Work
+Let's Work Together
+
+Secondary links:
+
+GitHub
+LinkedIn
+Resume
+16. Hero Visual
+
+Create a custom visual that communicates:
+
+Devices
+   ↓
+Data
+   ↓
+Processing
+   ↓
+Automation
+   ↓
+Systems
+   ↓
+Users
+
+It should visually suggest:
+
+IoT devices;
+APIs;
+event streams;
+backend processing;
+databases;
+automation;
+real-time systems.
+
+Do not use generic laptop/code imagery.
+
+A subtle animated system/network diagram is preferred.
+
+17. Selected Work
+
+Show the strongest projects first.
+
+Recommended initial ordering:
+
+IIoT Telemetry Bridge
+Entercom Platform
+Drool NFT
+RBAC Visualizer
+Finance Platform
+Entercom Website
+ESDAN
+
+But ordering must be controlled through order rather than hardcoded.
+
+Each project card should show:
+
+project name;
+short description;
+category;
+technologies;
+status;
+optional metric;
+demo;
+GitHub where public.
+18. Project Detail Pages
+
+Every project should have its own route:
+
+/projects/iot-telemetry-bridge
+/projects/entercom-platform
+/projects/drool-nft
+/projects/rbac-visualizer
+/projects/finance-platform
+/projects/entercom-website
+/projects/esdan
+
+The detail page should follow:
+
+Project Header
+
+Problem
+
+What I Built
+
+Architecture
+
+Key Engineering Work
+
+Important Technical Decisions
+
+Challenges
+
+Result / Metrics
+
+Technology
+
+Links
+
+Related Projects
+19. Project Detail Philosophy
+
+Do not write project pages like marketing landing pages.
+
+The goal is:
+
+Show the engineering.
+
+For example, instead of:
+
+"A powerful scalable platform."
+
+Prefer:
+
+"Telemetry is written to Redis Streams before database persistence, separating ingestion from storage and allowing the worker layer to batch database writes."
+
+That demonstrates engineering thinking.
+
+20. Engineering Experience
+
+Experience should be engineering-focused.
+
+Initial experience:
+
+Freelance Full-Stack Developer — Entercom
+
+Mar 2023 – Present
+
+Focus on:
+
+Django/DRF;
+React;
+React Native/Expo;
+architecture;
+RBAC;
+payment systems;
+audit logs;
+real-time systems;
+backend workflows.
+Team Lead — ESDAN Software Development
+
+Sep 2025 – Present
+
+Focus on:
+
+leading 5+ developers;
+code review;
+development standards;
+documentation;
+software architecture;
+delivery coordination.
+Engineering Intern — Pronto Microsystems
+
+Aug 2025 – Sep 2025
+
+Focus on:
+
+Django;
+Flask;
+React;
+REST APIs;
+SQL;
+debugging;
+performance;
+CI/CD.
+Data Analyst — Prebit Telegram
+
+Dec 2024 – Jul 2025
+
+Focus on:
+
+market analysis;
+statistical analysis;
+technical models;
+data-driven trading workflows.
+
+Experience should be stored as data.
+
+21. Experience Data Model
+interface Experience {
+  id: string;
+  company: string;
+  role: string;
+
+  startDate: string;
+  endDate?: string;
+
+  current?: boolean;
+
+  description: string;
+
+  responsibilities: string[];
+
+  technologies: string[];
+
+  order: number;
+
+  visible: boolean;
+}
+
+This means a new job can be added by creating an object.
+
+22. Skills
+
+Do not use fake percentage bars such as:
+
+Python ██████████ 95%
+
+These communicate little useful information.
+
+Instead use engineering categories.
+
+Backend & Systems
+Python
+Django
+Django REST Framework
+Flask
+REST APIs
+PostgreSQL
+Redis
+Celery
+WebSockets
+Event-driven architecture
+Frontend
+React
+TypeScript
+JavaScript
+Vite
+Tailwind CSS
+React Native
+Expo
+IoT & Real-Time
+MQTT
+Redis Streams
+WebSockets
+telemetry systems
+real-time dashboards
+industrial IoT
+Databases
+PostgreSQL
+Supabase
+SQLite
+TimescaleDB
+Neo4j/CognoDB
+Infrastructure
+Vercel
+Render
+Railway
+Docker
+Git
+CI/CD
+AI & Automation
+LLM integrations
+GROQ
+Gemini
+Telethon
+automation pipelines
+background workers
+23. Skill Relationships
+
+Where possible, show:
+
+Python
+ ├── Entercom
+ ├── IoT Bridge
+ ├── Finance
+ ├── Trading Pipeline
+ └── Telegram Bot
+
+This is more meaningful than a skill percentage.
+
+The data model can therefore optionally support:
+
+usedIn: string[];
+24. Services
+
+Include a services section.
+
+Systems & Backend Engineering
+
+Design and build APIs, backend services and system architectures.
+
+Automation Engineering
+
+Build systems that ingest information, process it and perform actions with minimal manual intervention.
+
+Real-Time Systems
+
+Design event-driven and real-time applications using WebSockets, Redis Streams and background workers.
+
+IoT & Telemetry Systems
+
+Build telemetry ingestion, buffering, processing and visualization systems for connected devices.
+
+Full-Stack Product Development
+
+Build complete products across frontend, backend, databases and deployment.
+
+Keep this section concise.
+
+25. About Section
+
+The personal story should be professional rather than overly personal.
+
+Core ideas to communicate:
+
+strong logical/analytical thinking;
+software is a practical medium for solving complex problems;
+enjoys building systems that demonstrate their correctness through behaviour;
+prefers engineering the backbone of products;
+interested in system design and automation;
+learns through building and debugging real systems.
+
+Do not write:
+
+"I'm bad at communication."
+
+Instead communicate the positive version:
+
+"I naturally gravitate toward problems where the best explanation is a system that works."
+
+26. Education
+
+Display:
+
+B.Eng. Computer Engineering
+
+University of Ilorin
+
+Current academic level:
+
+500 Level
+
+Expected graduation:
+
+2027
+
+Relevant areas:
+
+Software Engineering
+Data Structures
+Embedded Systems
+Artificial Intelligence
+Digital Electronics
+
+The current portfolio data should use the latest corrected academic information rather than blindly copying the older resume date.
+
+27. Certifications
+
+Include:
+
+CS50 Introduction to Computer Science
+CS50 Web Programming
+NITDA Cybersecurity
+Python Programming
+Web Development
+Data Analysis
+
+Each should be a data object so future certifications can be added without changing components.
+
+28. Resume Page
+
+Create:
+
+/resume
+
+The page should contain a web-readable resume.
+
+Include a prominent:
+
+Download Resume
+
+button.
+
+The portfolio should not depend on the resume page for its core content; resume and portfolio data should remain logically separate.
+
+29. Contact Section
+
+Headline:
+
+Let's work together.
+
+Primary contact method:
+
+Email
+
+princeadewale391@gmail.com
+
+Phone/WhatsApp can appear as a secondary contact option.
+
+GitHub:
+
+https://github.com/GITUPWALE08/
+
+LinkedIn:
+
+https://linkedin.com/in/adegoke-adewale/
+
+The LinkedIn URL should be verified before deployment because the original supplied text appears to have omitted the initial l.
+
+30. Contact Email Flow
+
+The primary CTA should open a pre-populated email composition.
+
+Example subject:
+
+Engineering / Software Opportunity — Adegoke Adewale
+
+The body should provide a professional starting template while allowing the visitor to edit it.
+
+Avoid forcing visitors through a custom backend contact form.
+
+This keeps the portfolio lightweight and reduces spam/security concerns.
+
+31. Navigation
+
+Desktop:
+
+Logo
+Work
+Experience
+Skills
+About
+Resume
+Contact
+Theme
+
+Mobile:
+
+compact navigation;
+accessible menu;
+sticky header;
+smooth section navigation.
+
+Project detail pages should have:
+
+← Back to Work
+
+32. Responsive Design
+
+The site must be designed mobile-first.
+
+Breakpoints should be handled through Tailwind.
+
+Pay particular attention to:
+
+hero layout;
+project cards;
+architecture diagrams;
+technical tables;
+navigation;
+project detail pages;
+contact section.
+
+Never allow architecture diagrams or technical content to cause horizontal page overflow.
+
+33. Animation
+
+Use Framer Motion sparingly.
+
+Preferred animations:
+
+page entrance;
+section reveal;
+card hover;
+navigation transitions;
+project page transitions;
+hero system visualization;
+subtle connection/data movement.
+
+Avoid:
+
+constant movement;
+large parallax effects;
+excessive bouncing;
+animations that interfere with reading.
+
+Respect:
+
+prefers-reduced-motion
+34. Performance
+
+The site should remain lightweight.
+
+Rules:
+
+no unnecessary dependencies;
+lazy-load project imagery;
+optimize images;
+avoid huge background assets;
+minimize JavaScript;
+no backend unless genuinely necessary;
+avoid unnecessary state management;
+use static data;
+use code splitting where useful.
+
+The portfolio itself should demonstrate engineering discipline.
+
+35. Accessibility
+
+Must include:
+
+semantic HTML;
+keyboard navigation;
+visible focus states;
+proper heading hierarchy;
+alt text;
+accessible buttons;
+accessible mobile menu;
+adequate contrast;
+reduced-motion support;
+meaningful link labels.
+
+Do not rely solely on colour to communicate project status.
+
+36. SEO
+
+Add:
+
+title;
+description;
+Open Graph metadata;
+Twitter/X metadata;
+canonical URL;
+favicon;
+sitemap where appropriate;
+robots configuration.
+
+Suggested title:
+
+Adegoke Adewale Idris — Systems & Automation Engineer
+
+Suggested description:
+
+Systems & Automation Engineer building backend systems, automation pipelines, real-time infrastructure and industrial IoT products.
+
+Project pages should have project-specific metadata.
+
+37. Analytics
+
+Keep analytics optional.
+
+Do not introduce a heavy analytics system simply for the sake of analytics.
+
+If implemented, use a lightweight privacy-conscious solution.
+
+Analytics must never become a reason to slow down the site.
+
+38. Security
+
+Because this is primarily a static frontend:
+
+no secrets in source;
+no API keys committed;
+no unnecessary backend;
+external links should use appropriate security attributes where needed;
+downloadable resume should be a static asset;
+email CTA should not expose private information beyond intended contact details.
+
+Do not create an admin dashboard for v1.
+
+The user's requested "dynamic" behaviour means data-driven content, not necessarily a database-powered CMS.
+
+39. Content Management Strategy
+V1
+
+Use:
+
+src/data/
+
+with TypeScript objects.
+
+Example:
+
+export const projects: Project[] = [
+  {
+    id: "iot-bridge",
+    slug: "iot-telemetry-bridge",
+    title: "High-Frequency IIoT Telemetry Bridge",
+    order: 1,
+    featured: true,
+    visible: true,
+    ...
+  }
+];
+
+Adding a project should require only:
+
+add project object;
+optionally add image;
+optionally add GitHub/demo URL.
+
+No component modification.
+
+40. Why Not a CMS?
+
+Do not build:
+
+Django admin;
+Supabase CMS;
+Firebase;
+WordPress;
+headless CMS;
+custom admin panel.
+
+For the current portfolio these introduce:
+
+unnecessary infrastructure;
+authentication;
+database management;
+additional failure points;
+more code;
+more deployment complexity.
+
+The content changes infrequently and the owner is technically capable of editing a TypeScript data file.
+
+A future CMS can be introduced without redesigning the component architecture because the UI already consumes structured data.
+
+41. Design System
+
+Create reusable tokens for:
+
+background;
+foreground;
+muted text;
+border;
+surface;
+accent;
+success;
+warning;
+error.
+
+Typography should prioritize readability.
+
+Use a strong display typeface for major headings and a highly readable body font.
+
+Do not use more than necessary.
+
+42. Reusable Components
+
+At minimum:
+
+Navbar
+ThemeToggle
+Hero
+SectionHeader
+ProjectCard
+ProjectGrid
+ProjectDetail
+TechBadge
+ExperienceTimeline
+SkillGroup
+ServiceCard
+EducationCard
+CertificationCard
+ContactSection
+Footer
+Button
+ExternalLink
+StatusBadge
+ArchitectureDiagram
+MetricCard
+
+Components should remain generic.
+
+For example:
+
+<ProjectCard project={project} />
+
+not:
+
+<IoTBridgeCard />
+43. Routing
+
+Use React Router.
+
+Routes:
+
+/
+ /projects/:slug
+ /resume
+
+The project page should resolve project content from:
+
+projects.find(project => project.slug === slug)
+
+Unknown projects should produce a proper 404 state.
+
+44. Architecture Diagram System
+
+Project architecture should not be hardcoded into every project page.
+
+The data model can support architecture nodes/edges if useful.
+
+Example:
+
+architecture: {
+  nodes: [...],
+  connections: [...]
+}
+
+However, do not over-engineer a generic graph renderer if a simpler reusable diagram component is sufficient.
+
+For v1, a reusable visual architecture component with structured content is enough.
+
+45. GitHub Links
+
+Public repositories should link directly to GitHub.
+
+Known repositories:
+
+Entercom: https://github.com/GITUPWALE08/Entercom
+DroolNFT: https://github.com/GITUPWALE08/DROOLNFT
+Wexa/RBAC: https://github.com/GITUPWALE08/wexa
+Finance frontend: https://github.com/GITUPWALE08/fin_frontend
+Finance backend: https://github.com/GITUPWALE08/fin_backend
+ESDAN: https://github.com/GITUPWALE08/ESDAN
+GitHub profile: https://github.com/GITUPWALE08/
+
+Where a repository is private, simply omit the GitHub button.
+
+Do not expose private repositories through misleading links.
+
+46. Additional Projects
+
+The portfolio architecture should allow future projects such as:
+
+Automated Trading Signal Pipeline
+Telegram Caption Automation Bot
+future IoT projects;
+future automation systems;
+future backend systems.
+
+These should be addable without changing components.
+
+The trading pipeline and Telegram bot should not be forced into the initial seven-project showcase if they are still incomplete. They can be added later when sufficiently mature.
+
+47. Project Status Language
+
+Use status carefully:
+
+Active
+
+Currently being maintained/developed.
+
+Completed
+
+Project is finished.
+
+Prototype
+
+Working proof-of-concept.
+
+In Progress
+
+Still under active development.
+
+Never use language such as:
+
+Production-ready
+
+unless that claim is actually justified.
+
+48. Engineering Metrics
+
+Metrics should only appear when their context is clear.
+
+Good:
+
+5,000+ records/sec
+Sandbox stress test
+
+Good:
+
+40,000+ users
+Campaign target
+
+Good:
+
+500 records/batch
+Telemetry worker configuration
+
+Bad:
+
+50,000 records/sec guaranteed
+
+unless actually demonstrated.
+
+49. Portfolio Storytelling
+
+The entire site should follow this narrative:
+
+Who I am
+     ↓
+What I build
+     ↓
+What I have built
+     ↓
+How I engineer systems
+     ↓
+Where I have applied it
+     ↓
+How to contact me
+
+The portfolio should progressively increase technical depth.
+
+Recruiters can stop after the homepage.
+
+Technical engineers can continue into project details.
+
+50. Homepage Project Presentation
+
+Each card should answer:
+
+What is this?
+
+Why does it matter?
+
+What did I personally do?
+
+What engineering problem did I solve?
+
+The project detail page answers the deeper questions.
+
+51. Important Writing Rule
+
+Avoid generic portfolio phrases such as:
+
+"Passionate developer creating innovative solutions."
+
+"Experienced in cutting-edge technologies."
+
+"I love turning ideas into reality."
+
+Instead use concrete engineering language.
+
+For example:
+
+"I build backend systems, automation pipelines and real-time infrastructure where reliability, data flow and system behaviour matter."
+
+52. Personal Brand Copy
+Main identity
+
+Systems & Automation Engineer
+
+Hero
+
+I build real-world products and the systems behind them.
+
+Supporting statement
+
+Backend systems • Automation • IoT • Real-time infrastructure
+
+About positioning
+
+I enjoy solving complex engineering problems where the behaviour of the system provides the proof. My work spans backend architecture, automation, real-time systems and industrial IoT, with a focus on building the infrastructure that makes products work.
+
+53. Footer
+
+Include:
+
+Adegoke Adewale Idris
+
+Systems & Automation Engineer
+
+GitHub
+LinkedIn
+Email
+
+© 2026 Adegoke Adewale Idris
+
+Do not make the footer overly large.
+
+54. Implementation Phases
+Phase 1 — Foundation
+
+Build:
+
+Vite;
+React;
+TypeScript;
+Tailwind;
+routing;
+theme system;
+global layout;
+design tokens.
+Phase 2 — Data Layer
+
+Create:
+
+profile.ts
+projects.ts
+experience.ts
+skills.ts
+education.ts
+certifications.ts
+services.ts
+
+Create TypeScript interfaces.
+
+Phase 3 — Homepage
+
+Implement:
+
+navbar;
+hero;
+selected projects;
+experience;
+skills;
+services;
+about;
+education;
+certifications;
+contact;
+footer.
+Phase 4 — Project System
+
+Implement:
+
+/projects/:slug
+
+and reusable project detail components.
+
+Phase 5 — Resume
+
+Implement:
+
+/resume
+
+plus download.
+
+Phase 6 — Polish
+
+Add:
+
+animations;
+responsive improvements;
+accessibility;
+SEO;
+performance optimization.
+Phase 7 — QA
+
+Test:
+
+desktop;
+mobile;
+tablet;
+dark mode;
+light mode;
+routing;
+Vercel refresh;
+external links;
+resume download;
+invalid project URLs;
+accessibility;
+reduced motion.
+55. Acceptance Criteria
+
+The project is complete when:
+
+Architecture
+ React + TypeScript + Vite
+ Tailwind
+ Framer Motion
+ React Router
+ No unnecessary backend
+ No CMS
+ Content separated from components
+Dynamic content
+ Projects are data-driven
+ Projects support manual ordering
+ Projects support featured/visible flags
+ Experience is data-driven
+ Skills are data-driven
+ Education is data-driven
+ Certifications are data-driven
+ Services are data-driven
+Pages
+ Homepage
+ Project detail pages
+ Resume page
+ 404 page
+Design
+ Dark mode default
+ Light mode available
+ Responsive
+ Minimal engineering aesthetic
+ Subtle animations
+ Custom systems-oriented hero visual
+Engineering
+ Proper TypeScript typing
+ Reusable components
+ No duplicated project markup
+ No hardcoded project-specific components
+ No secrets
+ No unnecessary API calls
+SEO/accessibility
+ Metadata
+ Semantic HTML
+ Keyboard navigation
+ Accessible buttons
+ Image alt text
+ Reduced-motion support
+Deployment
+ Vercel compatible
+ SPA routing works on refresh
+ Production build succeeds
+ No console errors
