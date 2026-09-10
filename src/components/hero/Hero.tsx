@@ -13,7 +13,7 @@ export function Hero() {
   return (
       <section className="relative min-h-[90vh] flex items-center pt-16 overflow-hidden">
         <div className="max-w-7xl mx-auto mt-0 px-4 lg:px-8 w-full z-10">
-          <div className="flex flex-row lg:grid lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-12 items-top">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-12 items-top">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -56,15 +56,15 @@ export function Hero() {
 
               <div className="flex flex-wrap items-center gap-3 lg:gap-6 pt-4 lg:pt-8 text-muted-foreground">       
                 <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors flex items-center gap-1.5 text-xs lg:text-sm font-medium">
-                  <Github className="w-4 h-4 lg:w-[18px] lg:h-[18px]" /> <span className="hidden sm:inline">GitHub</span>
+                  <Github className="w-4 h-4 lg:w-[18px] lg:h-[18px]" /> <span className="hidden inline">GitHub</span>
                 </a>
 
                 <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors flex items-center gap-1.5 text-xs lg:text-sm font-medium">
-                  <Linkedin className="w-4 h-4 lg:w-[18px] lg:h-[18px]" /> <span className="hidden sm:inline">LinkedIn</span>
+                  <Linkedin className="w-4 h-4 lg:w-[18px] lg:h-[18px]" /> <span className="hidden inline">LinkedIn</span>
                 </a>
 
                 <Link to="/resume" className="hover:text-foreground transition-colors flex items-center gap-1.5 text-xs lg:text-sm font-medium">
-                  <Download className="w-4 h-4 lg:w-[18px] lg:h-[18px]" /> <span className="hidden sm:inline">Resume</span>
+                  <Download className="w-4 h-4 lg:w-[18px] lg:h-[18px]" /> <span className="hidden inline">Resume</span>
                 </Link>
               </div>
 
