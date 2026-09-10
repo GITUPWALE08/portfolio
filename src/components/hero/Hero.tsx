@@ -111,7 +111,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex-shrink-0 justify-center items-top h-70 sm:w-40 sm:h-48 lg:h-[700px] lg:w-full lg:max-w-none relative"
+              className="flex-shrink-0 justify-center items-top h-100 sm:w-40 sm:h-48 lg:h-[700px] lg:w-full lg:max-w-none relative"
             >
               <img 
                 src={myImage} 

@@ -26,7 +26,7 @@ export function Home() {
       <SkillGroup skills={skills} />
       <ServicesSection services={services} />
       <EducationSection education={education} certifications={certifications} />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </div>
   );
 }
