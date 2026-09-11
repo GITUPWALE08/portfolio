@@ -10,5 +10,5 @@ export const profile: Profile = {
   github: "https://github.com/GITUPWALE08/",
   linkedin: "https://linkedin.com/in/adegoke-adewale/",
   telegram: "https://t.me/Theprimealpha",
-  whatsapp: "https://wa.me/2348123932006"
+  whatsapp: "https://wa.me/2348083368552"
 };

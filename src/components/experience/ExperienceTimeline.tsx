@@ -1,5 +1,6 @@
 import type { Experience } from '../../types';
 import { SectionHeader } from '../common/SectionHeader';
+import { ExpandableContent } from '../common/ExpandableContent';
 
 interface ExperienceTimelineProps {
   experiences: Experience[];
@@ -25,27 +26,31 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
                 </span>
               </div>
               
-              <div className="md:col-span-3 flex flex-col space-y-4">
+              <div className="md:col-span-3 flex flex-col space-y-3">
                 <div>
                   <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
                   <p className="text-lg text-muted-foreground">{exp.company}</p>
                 </div>
                 
-                <p className="text-muted-foreground">{exp.description}</p>
-                
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                  {exp.responsibilities.map((resp, i) => (
-                    <li key={i} className="text-sm">{resp}</li>
-                  ))}
-                </ul>
-                
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.technologies.map(tech => (
-                    <span key={tech} className="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                <ExpandableContent collapsedHeight="4.5rem">
+                  <div className="flex flex-col space-y-4">
+                    <p className="text-muted-foreground">{exp.description}</p>
+                    
+                    <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                      {exp.responsibilities.map((resp, i) => (
+                        <li key={i} className="text-sm">{resp}</li>
+                      ))}
+                    </ul>
+                    
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {exp.technologies.map(tech => (
+                        <span key={tech} className="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </ExpandableContent>
               </div>
             </div>
           </div>

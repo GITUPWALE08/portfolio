@@ -5,7 +5,7 @@ export const experiences: Experience[] = [
     id: "entercom",
     company: "Entercom",
     role: "Freelance Full-Stack Developer",
-    startDate: "Mar 2023",
+    startDate: "Dec 2025",
     endDate: "Present",
     current: true,
     description: "Developing and maintaining full-stack operations, leading technical architecture for security systems platforms.",
@@ -26,7 +26,7 @@ export const experiences: Experience[] = [
     company: "ESDAN Software Development",
     role: "Team Lead",
     startDate: "Sep 2025",
-    endDate: "Present",
+    endDate: "March 2026",
     current: true,
     description: "Leading a software development team to deliver scalable organizational and commercial digital platforms.",
     responsibilities: [
@@ -44,8 +44,8 @@ export const experiences: Experience[] = [
     id: "pronto-intern",
     company: "Pronto Microsystems",
     role: "Engineering Intern",
-    startDate: "Aug 2025",
-    endDate: "Sep 2025",
+    startDate: "Mar 2026",
+    endDate: "Sep 2026",
     current: false,
     description: "Assisted in building REST APIs, performance tuning, and implementing scalable backend architectures.",
     responsibilities: [
