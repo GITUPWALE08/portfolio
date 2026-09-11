@@ -37,7 +37,7 @@ export const experiences: Experience[] = [
       "Coordinating delivery and deployments"
     ],
     technologies: ["React", "TypeScript", "Vercel", "Tailwind CSS", "Git"],
-    order: 2,
+    order: 4,
     visible: true
   },
   {
@@ -56,7 +56,7 @@ export const experiences: Experience[] = [
       "CI/CD pipeline management"
     ],
     technologies: ["Django", "Flask", "React", "REST APIs", "SQL", "CI/CD"],
-    order: 3,
+    order: 2  ,
     visible: true
   },
   {
@@ -73,7 +73,7 @@ export const experiences: Experience[] = [
       "Developing data-driven trading workflows"
     ],
     technologies: ["Python", "Data Analysis", "Statistical Modeling", "Trading Workflows"],
-    order: 4,
+    order: 3,
     visible: true
   }
 ];
