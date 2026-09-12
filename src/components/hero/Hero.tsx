@@ -115,7 +115,7 @@ export function Hero() {
             >
               <img 
                 src={myImage} 
-                alt={`${profile.name} - ${profile.title}`} 
+                alt={profile.name} 
                 className="w-full h-full object-cover object-top bg-muted rounded-xl lg:rounded-2xl"
               />
             </motion.div>

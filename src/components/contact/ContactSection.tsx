@@ -17,7 +17,7 @@ export function ContactSection() {
             <div className="aspect-square overflow-hidden rounded-2xl border-2 border-border shadow-sm">
               <img 
                 src={myImage} 
-                alt={`${profile.name} - ${profile.title}`} 
+                alt={profile.name} 
                 className="w-full h-full object-cover object-top bg-muted"
               />
             </div>

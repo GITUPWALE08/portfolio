@@ -4,6 +4,8 @@ import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { GithubIcon as Github } from '../components/common/Icons';
 import { projects } from '../data/projects';
 import { SectionHeader } from '../components/common/SectionHeader';
+import { SEO } from '../components/common/SEO';
+import { siteConfig } from '../data/site';
 
 export function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -23,6 +25,12 @@ export function ProjectDetail() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
+      <SEO 
+        title={`${project.title} | ${siteConfig.name}`}
+        description={project.summary || project.description}
+        canonical={`${siteConfig.url}/projects/${project.slug}`}
+        ogType="article"
+      />
       <Link to="/#projects" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground mb-8 transition-colors">
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Work

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adegoke-adewale.me/sitemap.xml

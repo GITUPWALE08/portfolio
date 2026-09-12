@@ -4,6 +4,8 @@ import { profile } from '../data/profile';
 import { experiences } from '../data/experience';
 import { education } from '../data/education';
 import { skills } from '../data/skills';
+import { SEO } from '../components/common/SEO';
+import { siteConfig } from '../data/site';
 
 export function Resume() {
   const backendSkills = skills.filter(s => s.category === 'Backend & Systems' || s.category === 'Databases').map(s => s.name);
@@ -19,6 +21,11 @@ export function Resume() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
+      <SEO 
+        title={`Resume | ${siteConfig.name}`}
+        description={`Professional resume of ${siteConfig.name}, detailing engineering experience, education, and technical skills.`}
+        canonical={`${siteConfig.url}/resume`}
+      />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4 no-print">
         <SectionHeader title="Resume" />
         <button 

@@ -6,6 +6,8 @@ import { ServicesSection } from '../components/services/ServicesSection';
 import { About } from '../components/about/About';
 import { EducationSection } from '../components/education/EducationSection';
 // import { ContactSection } from '../components/contact/ContactSection';
+import { SEO } from '../components/common/SEO';
+import { siteConfig } from '../data/site';
 import { projects } from '../data/projects';
 import { experiences } from '../data/experience';
 import { skills } from '../data/skills';
@@ -17,8 +19,33 @@ export function Home() {
   const featuredProjects = projects.filter(p => p.visible && p.featured).sort((a, b) => a.order - b.order);
   const visibleExperiences = experiences.filter(e => e.visible).sort((a, b) => a.order - b.order);
 
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": siteConfig.name,
+        "url": siteConfig.url,
+        "jobTitle": "Systems & Automation Engineer",
+        "sameAs": [
+          siteConfig.links.github,
+          siteConfig.links.linkedin
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "name": siteConfig.name,
+        "url": siteConfig.url
+      }
+    ]
+  };
+
   return (
     <div className="flex flex-col gap-24 md:gap-32 pb-24">
+      <SEO 
+        canonical={siteConfig.url}
+        schema={homeSchema}
+      />
       <Hero />
       <About />
       <ProjectGrid projects={featuredProjects} />
@@ -26,7 +53,6 @@ export function Home() {
       <SkillGroup skills={skills} />
       <ServicesSection services={services} />
       <EducationSection education={education} certifications={certifications} />
-      {/* <ContactSection /> */}
     </div>
   );
 }
