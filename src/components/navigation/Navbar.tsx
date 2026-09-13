@@ -6,11 +6,12 @@ import { cn } from '../../lib/utils';
 // import { profile } from '../../data/profile';
 
 const navLinks = [
+  { name: 'About', href: '/#about' },
   { name: 'Projects', href: '/#projects' },
   { name: 'Work/Experience', href: '/#experience' },
   { name: 'Skills', href: '/#skills' },
-  { name: 'About', href: '/#about' },
   { name: 'Resume', href: '/resume' },
+  { name: 'Edu/Certs', href: '/#Edu' },
   // { name: 'Contact', href: '/#contact' },
 ];
 
