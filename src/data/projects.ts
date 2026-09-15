@@ -6,9 +6,9 @@ export const projects: Project[] = [
     slug: "iot-telemetry-bridge",
     title: "High-Frequency IIoT Telemetry Bridge v2.0",
     shortTitle: "IIoT Telemetry Bridge",
-    category: "Industrial IoT / Systems Architecture",
+    category: "Industrial IoT / Systems Engineering",
     summary: "An event-driven IIoT middleware platform designed to ingest, buffer, and visualize high-frequency industrial machine data in sub-second real-time.",
-    description: "An event-driven industrial IoT middleware platform designed to ingest, buffer, process, store, and visualize high-frequency machine telemetry with minimal latency. It acts as a fault-tolerant bridge between edge hardware and human operators, integrating a Gemini-powered AI layer to execute predictive maintenance analysis on live telemetry streams.",
+    description: "A real-time IIoT middleware system designed to reduce the software infrastructure required for hardware developers to collect, buffer, store, and visualize telemetry. It acts as a fault-tolerant bridge between edge hardware and human operators.",
     role: "Lead Systems Architect & Full-Stack Engineer",
     problem: "Hardware developers face a grueling process of designing, coding, and paying to host custom backends just to visualize sensor data. The overhead of protocol handling, connection management, and database ingestion slows down physical engineering.",
     solution: "A plug-and-play middleware that handles data ingestion and visualization instantly. By pointing a microcontroller's payload to this bridge, data is buffered and visualized in real-time, eliminating the software friction of hardware development.",
@@ -17,6 +17,7 @@ export const projects: Project[] = [
       "Ultra-Low Latency WebSocket Dashboard: Renders high-frequency telemetry streams into 60-second OHLC charts instantly without UI blocking.",
       "AI Predictive Indicators: Integrates Gemini LLM analysis directly into the data stream to predict hardware degradation."
     ],
+    architecture: "Edge devices -> HTTP / MQTT ingestion -> authentication caching -> Redis Streams buffering -> Background/micro-batched processing -> PostgreSQL / TimescaleDB -> WebSocket layer -> React dashboard",
     engineeringWork: [
       "Replaced standard relational tables with TimescaleDB hypertables partitioned by timestamp, removing unique_together constraints to allow high-velocity, append-only inserts.",
       "Engineered a supervised background worker utilizing a hybrid flush logic to pull from Redis via XREADGROUP and execute single bulk_create disk operations.",
@@ -24,14 +25,14 @@ export const projects: Project[] = [
     ],
     challenges: [
       "Handling Protocol Overhead: Resolved severe latency from repeated TCP/TLS handshakes by implementing persistent Keep-Alive connections for HTTP and optimizing MQTTS with QoS 1.",
-      "Mitigating OOM Crashes: Enforced strict MAXLEN eviction flags on Redis streams and routed failed database writes to a Dead-Letter Queue for manual auditing."
+      "Mitigating OOM Crashes: Enforced strict MAXLEN eviction flags on Redis streams and routed failed database writes to a dead-letter/error handling queue for manual auditing.",
+      "Separation of ingestion and storage: ensuring upstream API schema drift didn't break storage."
     ],
     lessons: [
       "Abstracting complex systems architecture (Redis streams, TimescaleDB) into a frictionless backend for the end-user.",
       "Engineering fault-tolerant, decoupled event architectures that prioritize memory-safe buffering over direct database transactions.",
-      "Strictly isolating the ingestion layer from the storage layer to prevent upstream API schema drift."
+      "System scalability considerations in industrial telemetry."
     ],
-    architecture: "Edge Device -> HTTP/MQTT -> Ingestion Layer -> Redis Streams -> Background Workers -> TimescaleDB / WebSockets",
     technologies: [
       { category: "Frontend", items: ["React", "TypeScript", "Tailwind", "WebSockets", "Lightweight Charts"] },
       { category: "Backend", items: ["Python", "Django", "DRF", "Daphne", "Celery", "Pydantic", "orjson", "cachetools"] },
@@ -43,9 +44,13 @@ export const projects: Project[] = [
     visible: true,
     order: 1,
     demoUrl: "https://iotbridging.tech/",
-    metrics: [
-      { label: "Sandbox stress test", value: "5,000+ records/sec" },
-      { label: "Architectural target", value: "~50k rows/sec" }
+    seo: {
+      title: "High-Frequency IIoT Telemetry Bridge v2.0 | Adegoke Adewale Idris",
+      description: "A real-time IIoT middleware system designed to reduce the software infrastructure required for hardware developers to collect, buffer, store, and visualize telemetry."
+    },
+    benchmarks: [
+      { type: "TESTED", description: "Sandbox stress-tested to 5,000 records/sec" },
+      { type: "TARGET", description: "Designed with a long-term goal of supporting ~50k rows/sec capacity" }
     ]
   },
   {
@@ -65,21 +70,23 @@ export const projects: Project[] = [
       "Technician assignment and job management",
       "Customer, Technician, Staff, Manager, and Admin portals",
       "Product catalog, orders, inventory, and payment processing",
-      "Paystack payment and webhook integration",
-      "Real-time notifications and support chat"
+      "Paystack payment and webhook handling",
+      "Operational dashboards and audit logs"
     ],
+    architecture: "React Native / Expo Clients -> Vercel Edge API -> Service Layer Architecture -> Django API & Celery/Redis -> Supabase PostgreSQL",
     engineeringWork: [
-      "Designed domain-driven request, quote, assignment, verification, payment, and escalation workflows.",
+      "Designed domain-driven request, quote, assignment, verification, payment, and escalation state-driven workflows.",
       "Built service-layer architecture around business operations rather than putting logic directly inside API views.",
       "Integrated Paystack webhook processing with payment verification and idempotency safeguards.",
       "Implemented partial and full quote payment handling.",
-      "Built asynchronous Celery workflows for scheduled reminders and background processing.",
-      "Developed RBAC across Customer, Technician, Staff, Manager, and Super Admin roles."
+      "Built asynchronous Celery/Redis workflows for scheduled reminders and background processing.",
+      "Developed RBAC across Customer, Technician, Staff, Manager, and Super Admin roles with strict verification rules.",
+      "Implemented WebSockets for real-time notifications."
     ],
     challenges: [
-      "Managing complex request, quote, payment, technician, and verification workflows without breaking existing business rules.",
+      "Managing complex request, quote, payment, technician, and verification state-driven workflows without breaking existing business rules.",
       "Maintaining consistency between frontend state, backend state, payments, and real-time events.",
-      "Handling partial payments while preventing requests from being incorrectly completed."
+      "Handling partial/full payments idempotency while preventing requests from being incorrectly completed."
     ],
     lessons: [
       "Designing complex business workflows using state-driven architecture.",
@@ -89,7 +96,7 @@ export const projects: Project[] = [
     technologies: [
       { category: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "TanStack Query", "React Native", "Expo"] },
       { category: "Backend", items: ["Python", "Django", "Django REST Framework", "Django Channels"] },
-      { category: "Database & Infra", items: ["PostgreSQL", "Supabase", "Vercel", "Render", "Railway", "Redis"] }
+      { category: "Database & Infra", items: ["PostgreSQL", "Supabase", "Vercel", "Render", "Railway", "Redis", "Celery"] }
     ],
     status: "active",
     visibility: "private",
@@ -97,7 +104,65 @@ export const projects: Project[] = [
     visible: true,
     order: 2,
     demoUrl: "https://entercom-v1.vercel.app/",
-    client: true
+    client: true,
+    seo: {
+      title: "Entercom Security Systems Platform | Adegoke Adewale Idris",
+      description: "A full-stack security service platform managing customer journeys, payments, technician assignments, and operational workflows."
+    },
+    benchmarks: [
+      { type: "ACHIEVED", description: "Successfully managed and automated full lifecycle for internal security workflows." }
+    ]
+  },
+  {
+    id: "rbac-visualizer",
+    slug: "rbac-visualizer",
+    title: "RBAC Visualizer",
+    shortTitle: "RBAC Visualizer",
+    category: "Full-Stack Development / Graph Databases",
+    summary: "A full-stack application for visualizing role-based access control hierarchies using a graph database.",
+    description: "A full-stack web application that visualizes Role-Based Access Control (RBAC) hierarchies. It maps User -> Role -> Permission relationships using a graph database, enabling rapid and efficient multi-hop access checks.",
+    role: "Full-Stack Developer",
+    problem: "Visually exploring and efficiently querying complex, nested permission structures typically requires slow, recursive JOINs in traditional relational databases.",
+    solution: "Leveraging a graph database (Neo4j) to map inheritances as nodes and edges, paired with a visual React interface for rapid exploration.",
+    features: [
+      "Visual Hierarchy Dashboard: Displays users alongside their directly assigned roles and inherited permissions.",
+      "Multi-Hop Access Checker: Evaluates if a user has specific access rights by natively traversing through multiple relationship hops.",
+      "Automated Data Seeding: Initializes the cloud-hosted graph database with test data."
+    ],
+    architecture: "React Interface -> Flask REST API -> Parameterized Queries -> Neo4j (CognoDB) Graph Data Modeling",
+    engineeringWork: [
+      "Modeled and implemented a graph schema that natively represents RBAC inheritances (User -> Role -> Permission).",
+      "Wrote parameterized Cypher queries to securely prevent injection vulnerabilities while executing multi-hop traversals.",
+      "Kept the architecture strictly minimal, intentionally bypassing complex ORMs."
+    ],
+    challenges: [
+      "Condensing a full-stack implementation into a strict 5-hour sprint.",
+      "Ensuring the multi-hop Cypher traversal query was syntactically correct and securely parameterized.",
+      "Troubleshooting cross-origin issues during split-stack deployment."
+    ],
+    lessons: [
+      "Graph databases drastically simplify querying hierarchical and highly connected data.",
+      "Utilizing a highly constrained, single-file Flask API is incredibly effective for raw database operations."
+    ],
+    technologies: [
+      { category: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind CSS"] },
+      { category: "Backend", items: ["Python", "Flask"] },
+      { category: "Database & Infra", items: ["Neo4j (CognoDB)", "Cypher", "Vercel", "Render"] }
+    ],
+    status: "completed",
+    visibility: "public",
+    featured: true,
+    visible: true,
+    order: 3,
+    demoUrl: "https://wexa-psi.vercel.app/",
+    githubUrl: "https://github.com/GITUPWALE08/wexa",
+    seo: {
+      title: "RBAC Visualizer | Adegoke Adewale Idris",
+      description: "A full-stack application mapping User to Role to Permission relationships using Neo4j and Cypher multi-hop traversals."
+    },
+    benchmarks: [
+      { type: "ACHIEVED", description: "Completed - Technical Assessment" }
+    ]
   },
   {
     id: "drool-nft",
@@ -106,7 +171,7 @@ export const projects: Project[] = [
     shortTitle: "Drool NFT",
     category: "Web3 / Frontend Development",
     summary: "A Web3 NFT whitelist platform designed for high-volume wallet registration and engagement collection.",
-    description: "A highly scalable Web3 landing page and whitelist application designed to collect user engagement data and Ethereum wallet addresses for an upcoming NFT mint. It features a multi-step submission UI, native MetaMask integration, and a secure admin dashboard built to handle massive traffic spikes.",
+    description: "A highly scalable Web3 landing page and whitelist application designed to collect user engagement data and Ethereum wallet addresses for an upcoming NFT mint.",
     role: "Lead Frontend Developer",
     problem: "No-code tools suffer from bottlenecks and rate-limiting crashes during high-concurrency mint announcements. A solution was needed to manage massive whitelist submissions while preventing duplicate wallet spam.",
     solution: "A bespoke React application with Supabase PostgreSQL to eliminate API rate limits and connection throttling, utilizing unique database constraints to reject duplicate submissions natively.",
@@ -139,57 +204,18 @@ export const projects: Project[] = [
     ],
     status: "completed",
     visibility: "public",
-    featured: true,
-    visible: true,
-    order: 3,
-    demoUrl: "https://droolnft.vercel.app/",
-    githubUrl: "https://github.com/GITUPWALE08/DROOLNFT",
-    metrics: [
-      { label: "Campaign target", value: "40,000+ users" }
-    ]
-  },
-  {
-    id: "rbac-visualizer",
-    slug: "rbac-visualizer",
-    title: "RBAC Visualizer",
-    shortTitle: "RBAC Visualizer",
-    category: "Full-Stack Development / Graph Databases",
-    summary: "A full-stack application for visualizing role-based access control hierarchies using a graph database.",
-    description: "A full-stack web application that visualizes Role-Based Access Control (RBAC) hierarchies. It maps relationships between users, roles, and permissions using a graph database, enabling rapid and efficient multi-hop access checks.",
-    role: "Full-Stack Developer",
-    problem: "Visually exploring and efficiently querying complex, nested permission structures typically requires slow, recursive JOINs in traditional relational databases.",
-    solution: "Leveraging a graph database (Neo4j) to map inheritances as nodes and edges, paired with a visual React interface for rapid exploration.",
-    features: [
-      "Visual Hierarchy Dashboard: Displays users alongside their directly assigned roles and inherited permissions.",
-      "Multi-Hop Access Checker: Evaluates if a user has specific access rights by natively traversing through multiple relationship hops.",
-      "Automated Data Seeding: Initializes the cloud-hosted graph database with test data."
-    ],
-    engineeringWork: [
-      "Modeled and implemented a graph schema that natively represents RBAC inheritances.",
-      "Wrote parameterized Cypher queries to securely prevent injection vulnerabilities while executing multi-hop traversals.",
-      "Kept the architecture strictly minimal, intentionally bypassing complex ORMs."
-    ],
-    challenges: [
-      "Condensing a full-stack implementation into a strict 5-hour sprint.",
-      "Ensuring the multi-hop Cypher traversal query was syntactically correct and securely parameterized.",
-      "Troubleshooting cross-origin issues during split-stack deployment."
-    ],
-    lessons: [
-      "Graph databases drastically simplify querying hierarchical and highly connected data.",
-      "Utilizing a highly constrained, single-file Flask API is incredibly effective for raw database operations."
-    ],
-    technologies: [
-      { category: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind CSS"] },
-      { category: "Backend", items: ["Python", "Flask"] },
-      { category: "Database & Infra", items: ["Neo4j (CognoDB)", "Cypher", "Vercel", "Render"] }
-    ],
-    status: "completed",
-    visibility: "public",
-    featured: true,
+    featured: false,
     visible: true,
     order: 4,
-    demoUrl: "https://wexa-psi.vercel.app/",
-    githubUrl: "https://github.com/GITUPWALE08/wexa"
+    demoUrl: "https://droolnft.vercel.app/",
+    githubUrl: "https://github.com/GITUPWALE08/DROOLNFT",
+    seo: {
+      title: "Drool NFT Whitelist Platform | Adegoke Adewale Idris",
+      description: "A highly scalable Web3 landing page and whitelist application designed to collect user engagement data."
+    },
+    benchmarks: [
+      { type: "TARGET", description: "Campaign target: 40,000+ users" }
+    ]
   },
   {
     id: "finance-platform",
@@ -198,7 +224,7 @@ export const projects: Project[] = [
     shortTitle: "Finance Platform",
     category: "Full-Stack Development / Financial Tech",
     summary: "A stock-trading simulation platform implementing live quotes, buying/selling, portfolio tracking and transaction history.",
-    description: "A web-based stock trading simulation platform where users can retrieve real-time stock quotes, buy/sell shares, and track their portfolio performance. It serves as a modern, decoupled full-stack recreation of a financial trading application.",
+    description: "A web-based stock trading simulation platform where users can retrieve real-time stock quotes, buy/sell shares, and track their portfolio performance.",
     role: "Full-Stack Developer",
     problem: "Handling financial data correctly requires strict database transaction integrity, preventing race conditions, and securely passing state between a backend and a Single Page Application.",
     solution: "A decoupled architecture utilizing PostgreSQL with strict ON CONFLICT constraints and atomic SQL updates to ensure user balances and share counts are perfectly synchronized during trades.",
@@ -228,11 +254,15 @@ export const projects: Project[] = [
     ],
     status: "active",
     visibility: "public",
-    featured: true,
+    featured: false,
     visible: true,
     order: 5,
     demoUrl: "https://finance-three-sepia.vercel.app/",
-    githubUrl: "https://github.com/GITUPWALE08/fin_frontend"
+    githubUrl: "https://github.com/GITUPWALE08/fin_frontend",
+    seo: {
+      title: "Finance Trading Platform | Adegoke Adewale Idris",
+      description: "A stock-trading simulation platform implementing live quotes, buying/selling, portfolio tracking and transaction history."
+    }
   },
   {
     id: "entercom-website",
@@ -270,12 +300,16 @@ export const projects: Project[] = [
     ],
     status: "active",
     visibility: "partial",
-    featured: true,
+    featured: false,
     visible: true,
     order: 6,
     demoUrl: "https://www.entercomsecurity.com/",
     githubUrl: "https://github.com/GITUPWALE08/Entercom",
-    client: true
+    client: true,
+    seo: {
+      title: "Entercom Security Systems Website | Adegoke Adewale Idris",
+      description: "Corporate website and digital presence for Entercom Security, managing domain architecture and email routing."
+    }
   },
   {
     id: "esdan",
@@ -312,11 +346,15 @@ export const projects: Project[] = [
     ],
     status: "active",
     visibility: "public",
-    featured: true,
+    featured: false,
     visible: true,
     order: 7,
     demoUrl: "https://esdan.vercel.app/",
     githubUrl: "https://github.com/GITUPWALE08/ESDAN",
-    client: true
+    client: true,
+    seo: {
+      title: "ESDAN Corporate Website | Adegoke Adewale Idris",
+      description: "Corporate web application for the Economic and Social Development Association of Nigeria."
+    }
   }
 ];

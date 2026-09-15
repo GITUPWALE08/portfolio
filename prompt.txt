@@ -1,1 +1,534 @@
-Additional UI refinements: 1. ENGINEERING EXPERIENCE - Each experience item should initially display only the first 2 lines of its description/content. - Add a "Read more" control after the preview. - Clicking "Read more" expands the full content. - Change the control to "Read less" when expanded. - Keep the existing timeline design unchanged. - The expansion should be smooth and should not disrupt the timeline layout. 2. WHAT I BUILD - Replace the current card/box-based presentation with the same clean timeline-style/bullet-line visual language used in the Engineering Experience section. - Each service/item should initially show a short 2-line preview. - Add "Read more" / "Read less" functionality for each item. - Expanded content should show the complete description/details. - Keep the presentation minimal, technical, and consistent with the Engineering Experience timeline. 3. SKILLS - Keep the existing skill categories and overall visual style. - Each skill category should initially show a limited number of skills. - Add "Read more" / "Read less" functionality to reveal the remaining skills. - Avoid percentage/progress bars. - Keep the section compact so it does not become unnecessarily long. - The expanded/collapsed state should work independently for each category where appropriate. IMPORTANT: - These are refinements to the existing approved UI. - Do not redesign the entire portfolio. - Do not replace the existing visual language. - Reuse existing components/styles where possible. - Make the Read more/Read less interaction reusable rather than implementing separate duplicated logic for each section. - Ensure the interaction works well on both desktop and mobile.
+I want to make a focused SEO, content, and information-architecture improvement to the existing portfolio.
+
+IMPORTANT:
+- Do not redesign the existing UI.
+- Do not change the current visual identity, colors, typography, animations, or overall layout unless required for the changes below.
+- Preserve the existing responsive behavior.
+- Do not invent achievements, benchmarks, client results, traffic numbers, performance numbers, or production metrics.
+- Clearly distinguish VERIFIED/ACHIEVED metrics from TARGET/DESIGN metrics.
+- Use the existing project information already present in the codebase as the source of truth.
+- Before modifying anything, inspect the existing routing, project data structure, SEO/meta implementation, sitemap generation, homepage sections, and project case-study pages.
+
+==================================================
+1. FIX CONTENT-VISIBILITY
+==================================================
+
+Find the current implementation causing the PageSpeed/content-visibility issue.
+
+Determine whether content-visibility is being used incorrectly, unnecessarily, or preventing important above-the-fold/content elements from being rendered or measured correctly.
+
+Fix it without removing useful performance optimizations unnecessarily.
+
+Requirements:
+- Do not apply content-visibility to the hero/LCP element.
+- Do not hide important SEO/content elements from the initial render.
+- Do not use content-visibility in a way that causes project content, headings, or important sections to be unavailable to crawlers or accessibility tools.
+- Preserve lazy loading/deferred rendering where it is genuinely beneficial.
+- Verify that the fix does not introduce layout shift.
+
+After implementation, test:
+- homepage rendering
+- project pages
+- mobile layout
+- Lighthouse/PageSpeed
+- LCP
+- CLS
+- accessibility
+
+==================================================
+2. FIX PROJECT-SPECIFIC SEO/META DATA
+==================================================
+
+The current site has a serious SEO problem where search engines can receive/mix incorrect descriptions between project pages.
+
+Implement route-specific SEO metadata.
+
+Every project page MUST have its own:
+- <title>
+- meta description
+- canonical URL
+- Open Graph title
+- Open Graph description
+- Open Graph URL
+- Open Graph image where appropriate
+- Twitter title
+- Twitter description
+- Twitter image where appropriate
+
+Do NOT use one global project description for every project.
+
+Create/use a single structured project data source so metadata is generated from the same project object used by the project page.
+
+Example conceptual structure:
+
+project:
+  slug
+  name
+  shortDescription
+  seoTitle
+  seoDescription
+  url
+  category
+  status
+  featured
+  ...
+
+The canonical URL must exactly match the actual route.
+
+IMPORTANT:
+Use the actual existing routes in the application. Do not invent or rename slugs.
+
+Current known routes include:
+
+/projects/iot-telemetry-bridge
+/projects/entercom-platform
+/projects/entercom-website
+/projects/drool-nft
+/projects/rbac-visualizer
+/projects/finance-platform
+/projects/esdan
+/projects/resume
+
+Inspect the router and confirm the real routes before implementation.
+
+SEO descriptions must accurately describe each individual project.
+
+For example, the IIoT project should NOT receive the description of Entercom, Finance, Wexa, etc.
+
+Also inspect whether the application is a React/Vite SPA and ensure metadata is actually available to search engines for individual routes. Do not assume that changing document.title alone completely solves the indexing problem.
+
+==================================================
+3. REPOSITION THE PROFESSIONAL NARRATIVE
+==================================================
+
+The portfolio's primary professional positioning is:
+
+HYBRID SYSTEMS & AUTOMATION ENGINEER
+
+However, the main technical narrative should now strongly emphasize:
+
+- Industrial IoT
+- Systems engineering
+- Backend systems
+- Automation
+- Event-driven architecture
+- Real-time systems
+- Distributed/data pipelines
+- System reliability
+- Engineering infrastructure
+
+The flagship project is:
+
+HIGH-FREQUENCY IIoT TELEMETRY BRIDGE v2.0
+
+The homepage should make this obvious within the first few seconds.
+
+The portfolio should communicate:
+
+"I design and build the systems behind real-world products."
+
+Avoid generic portfolio language such as:
+
+"I build amazing products."
+"I turn ideas into reality."
+"I create digital experiences."
+
+The narrative should be technical and outcome-oriented.
+
+==================================================
+4. REWRITE THE HERO
+==================================================
+
+Rewrite the hero around:
+
+- Industrial IoT
+- systems engineering
+- backend infrastructure
+- automation
+- real-time/event-driven systems
+- measurable engineering outcomes
+
+Do NOT make the hero sound like a generic frontend/full-stack developer.
+
+Use concise, technically credible language.
+
+The hero should communicate approximately:
+
+Primary identity:
+Systems & Automation Engineer
+
+Specialization:
+Industrial IoT, backend infrastructure, automation, real-time systems
+
+Outcome:
+Designing and building reliable systems that connect physical devices, software, data, and operational workflows.
+
+The IIoT Telemetry Bridge should be visually and contextually connected to the hero as the flagship engineering example.
+
+Do not overclaim expertise.
+
+==================================================
+5. HOMEPAGE PROJECT ARCHITECTURE
+==================================================
+
+Only THREE strongest projects should appear prominently on the homepage.
+
+Recommended priority:
+
+1. High-Frequency IIoT Telemetry Bridge v2.0
+2. Entercom Security Systems Platform
+3. RBAC Visualizer
+
+These three should represent:
+
+1. Industrial IoT / systems architecture
+2. Complex production-oriented business systems
+3. Data modeling / graph-based systems
+
+Move the remaining projects into:
+
+"More Work"
+
+The More Work section can contain:
+- Drool NFT Whitelist Platform
+- Finance Trading Platform
+- Entercom Security Systems Website
+- ESDAN
+
+Do not delete any projects.
+
+The project data model must support manual ordering/indexing so projects can be reordered later without rewriting components.
+
+Example:
+
+featured: true
+displayOrder: 1
+
+==================================================
+6. CASE STUDY STRUCTURE
+==================================================
+
+Every flagship case study/project detail page should be structured around engineering rather than merely showing screenshots.
+
+Add/strengthen these sections:
+
+A. Overview
+- What it is
+- Problem
+- My role
+
+B. Architecture
+Show the major system components and how they interact.
+
+For the IIoT Telemetry Bridge, describe the architecture using only what is actually implemented.
+
+Example concepts already supported by the project information:
+
+Edge devices
+    ↓
+HTTP / MQTT ingestion
+    ↓
+Redis Streams
+    ↓
+Background/micro-batched processing
+    ↓
+PostgreSQL / TimescaleDB
+    ↓
+WebSocket layer
+    ↓
+React dashboard
+
+Where applicable also show:
+- authentication/cache layer
+- MQTT broker
+- background workers
+- AI analysis layer
+
+Do not invent components that do not exist.
+
+C. Engineering Decisions
+Explain important technical decisions and why they were made.
+
+D. Challenges
+Explain the actual engineering problems encountered.
+
+E. Results / Benchmarks
+
+This section is extremely important.
+
+Every metric MUST be labelled as one of:
+
+ACHIEVED
+VERIFIED
+TESTED
+TARGET
+DESIGNED FOR
+
+Never present a target as if it were an achieved production result.
+
+For example:
+
+ACHIEVED / TESTED
+- Stress-tested to 5,000 records/sec
+
+TARGET
+- Designed with a long-term goal of supporting higher ingestion volumes
+
+Do NOT write:
+
+"Handles thousands of records per second"
+
+unless the existing evidence actually proves that claim.
+
+Do NOT invent:
+- uptime
+- latency
+- concurrent users
+- requests/sec
+- production traffic
+- cost savings
+- percentage improvements
+- customer growth
+- revenue
+- conversion rates
+
+If a project has no verified numerical benchmark, say so and use qualitative engineering outcomes instead.
+
+==================================================
+7. IIoT TELEMETRY BRIDGE — FLAGSHIP
+==================================================
+
+Give the IIoT Telemetry Bridge the strongest case-study treatment.
+
+Position it as:
+
+High-Frequency IIoT Telemetry Bridge v2.0
+
+Category:
+Industrial IoT / Systems Engineering
+
+Narrative:
+
+A real-time IIoT middleware system designed to reduce the software infrastructure required for hardware developers to collect, buffer, store, and visualize telemetry.
+
+Emphasize:
+
+- HTTP/MQTT ingestion
+- Redis Streams buffering
+- micro-batched persistence
+- PostgreSQL/TimescaleDB
+- WebSockets
+- real-time visualization
+- authentication caching
+- fault-tolerant ingestion
+- dead-letter/error handling where actually implemented
+- industrial telemetry
+- separation of ingestion and storage
+- system scalability considerations
+
+Known verified/project-provided benchmark:
+
+TESTED:
+- sandbox stress-tested to 5,000 records/sec
+
+Treat this explicitly as a stress-test result, NOT as a production throughput claim.
+
+Where the existing project documentation describes future goals or intended capacity, label those:
+
+TARGET / DESIGN GOAL
+
+Do not turn them into achievements.
+
+==================================================
+8. ENTERCOM CASE STUDY
+==================================================
+
+Position Entercom Security Systems Platform as the second major engineering case study.
+
+Emphasize:
+
+- state-driven workflows
+- service-layer architecture
+- payments
+- Paystack webhook handling
+- idempotency
+- partial/full payments
+- RBAC
+- technician workflows
+- verification
+- audit logs
+- WebSockets
+- Celery/Redis
+- operational dashboards
+
+Focus on engineering complexity rather than UI screenshots.
+
+Do not invent production usage metrics.
+
+==================================================
+9. RBAC VISUALIZER CASE STUDY
+==================================================
+
+Position RBAC Visualizer as the third major engineering case study.
+
+Emphasize:
+
+- graph data modeling
+- User → Role → Permission relationships
+- multi-hop traversal
+- Cypher
+- Neo4j/CognoDB
+- Flask REST API
+- parameterized queries
+- minimal architecture
+- rapid implementation under technical-assessment constraints
+
+Clearly identify it as:
+
+Completed — Technical Assessment
+
+Do not imply it was a production system.
+
+==================================================
+10. PROJECT DATA MODEL
+==================================================
+
+Refactor/extend the project data structure if necessary so every project has fields similar to:
+
+{
+  slug,
+  name,
+  shortDescription,
+  longDescription,
+  category,
+  role,
+  status,
+  featured,
+  displayOrder,
+
+  seo: {
+    title,
+    description,
+    canonical,
+    ogImage
+  },
+
+  overview,
+  problem,
+  role,
+  features,
+  stack,
+  architecture,
+  engineeringWork,
+  challenges,
+  results,
+  benchmarks,
+  lessonsLearned,
+
+  links: {
+    live,
+    github,
+    documentation,
+    demo
+  },
+
+  sourceVisibility
+}
+
+Do not blindly copy this structure if the existing application has a better architecture. Adapt it cleanly.
+
+The critical requirement is that project content and project SEO metadata come from the same source of truth.
+
+==================================================
+11. HOMEPAGE "WHAT I BUILD"
+==================================================
+
+Keep the existing "What I Build" concept, but align it with the new professional narrative.
+
+Use engineering-focused categories such as:
+
+- Industrial IoT & Telemetry Systems
+- Backend & Distributed Systems
+- Automation & Integration
+- Real-Time Data Infrastructure
+- Systems Architecture
+- Engineering Tools
+
+Avoid presenting the section as generic web-development services.
+
+==================================================
+12. SERVICES / WHAT I DO
+==================================================
+
+Keep the services section but make it consistent with the positioning.
+
+Examples:
+
+- Backend & API Systems
+- Industrial IoT Integration
+- Real-Time Data Systems
+- Automation & System Integration
+- Internal/Operational Platforms
+- Technical System Design
+
+Do not position me primarily as a UI designer or frontend specialist.
+
+==================================================
+13. SEO CONSISTENCY
+==================================================
+
+Audit the entire site for:
+
+- duplicate titles
+- duplicate meta descriptions
+- incorrect descriptions
+- incorrect canonical URLs
+- stale project slugs
+- incorrect Open Graph metadata
+- incorrect Twitter metadata
+- links pointing to nonexistent project routes
+- sitemap URLs that do not match actual routes
+
+The sitemap must be generated from the canonical project route data.
+
+Do not manually maintain a second independent list of project URLs.
+
+Every sitemap URL must resolve to a real canonical page.
+
+==================================================
+14. VALIDATION
+==================================================
+
+Before declaring the task complete, verify:
+
+1. Homepage title/description
+2. IIoT project title/description
+3. Entercom Platform title/description
+4. RBAC Visualizer title/description
+5. Every other project has unique metadata
+6. Canonical URLs are correct
+7. Open Graph metadata is project-specific
+8. Sitemap contains only valid canonical URLs
+9. No stale project slugs remain
+10. Hero clearly communicates Systems & Automation / IIoT
+11. Only three projects appear in Featured Work
+12. Remaining projects appear under More Work
+13. Case studies contain architecture
+14. Case studies contain results/benchmarks
+15. Achieved metrics are clearly separated from targets
+16. No fabricated metrics have been introduced
+17. Content-visibility no longer negatively affects important content/LCP
+18. Existing UI remains visually consistent
+
+Finally, run a production build and verify that all routes still work.
+
+Do not deploy automatically.
+
+Give me a concise summary of:
+- files changed
+- SEO changes
+- content changes
+- routing changes
+- performance changes
+- any assumptions made
+- any metrics that could NOT be verified from the existing project information

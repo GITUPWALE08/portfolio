@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../components/common/SEO';
 
 export function NotFound() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+      <SEO title="404 - Not Found" noindex={true} />
       <h1 className="text-9xl font-bold font-mono text-muted/50 mb-8">404</h1>
       <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">System Not Found</h2>
       <p className="text-muted-foreground max-w-md mb-8">

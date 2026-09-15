@@ -28,10 +28,13 @@ export interface Project {
   documentationUrl?: string;
   client?: boolean;
   images?: string[];
-  metrics?: {
-    label: string;
-    value: string;
-    context?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+  };
+  benchmarks?: {
+    type: "ACHIEVED" | "VERIFIED" | "TESTED" | "TARGET" | "DESIGNED FOR";
+    description: string;
   }[];
 }
 

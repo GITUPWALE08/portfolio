@@ -26,8 +26,8 @@ export function ProjectDetail() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
       <SEO 
-        title={`${project.title} | ${siteConfig.name}`}
-        description={project.summary || project.description}
+        title={project.seo?.title || `${project.title} | ${siteConfig.name}`}
+        description={project.seo?.description || project.summary || project.description}
         canonical={`${siteConfig.url}/projects/${project.slug}`}
         ogType="article"
       />
@@ -72,31 +72,35 @@ export function ProjectDetail() {
         <div className="md:col-span-2 space-y-12">
           
           <section>
-            <h2 className="text-2xl font-bold mb-4 text-foreground">The Problem</h2>
-            <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">{project.problem}</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-4 text-foreground">What I Built</h2>
-            <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap mb-4">{project.solution}</p>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              {project.features.map((feature, i) => (
-                <li key={i}>{feature}</li>
-              ))}
-            </ul>
+            <h2 className="text-2xl font-bold mb-4 text-foreground">Overview</h2>
+            <div className="space-y-6 text-muted-foreground leading-relaxed whitespace-pre-wrap">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">What It Is</h3>
+                <p>{project.solution}</p>
+                <ul className="list-disc list-inside space-y-2 mt-4 text-muted-foreground">
+                  {project.features.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">The Problem</h3>
+                <p>{project.problem}</p>
+              </div>
+            </div>
           </section>
 
           {project.architecture && (
             <section>
               <h2 className="text-2xl font-bold mb-4 text-foreground">Architecture</h2>
-              <div className="p-4 bg-muted/50 rounded-lg border border-border font-mono text-sm whitespace-pre-wrap overflow-x-auto text-muted-foreground">
+              <div className="p-4 bg-muted/50 rounded-lg border border-border font-mono text-sm whitespace-pre-wrap overflow-x-auto text-accent">
                 {project.architecture}
               </div>
             </section>
           )}
 
           <section>
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Important Engineering Work</h2>
+            <h2 className="text-2xl font-bold mb-4 text-foreground">Engineering Decisions</h2>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               {project.engineeringWork.map((work, i) => (
                 <li key={i}>{work}</li>
@@ -114,12 +118,21 @@ export function ProjectDetail() {
           </section>
           
           <section>
-            <h2 className="text-2xl font-bold mb-4 text-foreground">What I Learned</h2>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              {project.lessons.map((lesson, i) => (
-                <li key={i}>{lesson}</li>
-              ))}
-            </ul>
+            <h2 className="text-2xl font-bold mb-4 text-foreground">Results / Benchmarks</h2>
+            {project.benchmarks && project.benchmarks.length > 0 ? (
+              <div className="space-y-4">
+                {project.benchmarks.map((benchmark, i) => (
+                  <div key={i} className="p-4 bg-surface border border-border rounded-lg">
+                    <span className="inline-block px-2 py-1 bg-muted text-xs font-bold tracking-wider rounded mb-2 text-foreground">
+                      {benchmark.type}
+                    </span>
+                    <p className="text-muted-foreground">{benchmark.description}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted-foreground italic">No formal numerical benchmarks were recorded for this project. Outcomes were validated through successful qualitative system delivery and architectural stability.</p>
+            )}
           </section>
         </div>
 
@@ -146,20 +159,6 @@ export function ProjectDetail() {
               ))}
             </div>
           </div>
-
-          {project.metrics && project.metrics.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-4">Metrics</h3>
-              <div className="space-y-4">
-                {project.metrics.map((metric, i) => (
-                  <div key={i} className="p-4 bg-surface border border-border rounded-lg">
-                    <p className="text-2xl font-bold text-accent mb-1">{metric.value}</p>
-                    <p className="text-sm text-muted-foreground">{metric.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
       

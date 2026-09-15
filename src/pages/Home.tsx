@@ -17,6 +17,7 @@ import { certifications } from '../data/certifications';
 
 export function Home() {
   const featuredProjects = projects.filter(p => p.visible && p.featured).sort((a, b) => a.order - b.order);
+  const moreProjects = projects.filter(p => p.visible && !p.featured).sort((a, b) => a.order - b.order);
   const visibleExperiences = experiences.filter(e => e.visible).sort((a, b) => a.order - b.order);
 
   const homeSchema = {
@@ -48,7 +49,21 @@ export function Home() {
       />
       <Hero />
       <About />
-      <ProjectGrid projects={featuredProjects} />
+      <div className="flex flex-col gap-12 md:gap-16">
+        <ProjectGrid 
+          projects={featuredProjects} 
+          title="Featured Work" 
+          description="Flagship engineering case studies spanning IIoT telemetry, real-time workflows, and systems design." 
+          id="projects" 
+        />
+        {moreProjects.length > 0 && (
+          <ProjectGrid 
+            projects={moreProjects} 
+            title="More Work" 
+            id="more-projects"
+          />
+        )}
+      </div>
       <ExperienceTimeline experiences={visibleExperiences} />
       <SkillGroup skills={skills} />
       <ServicesSection services={services} />

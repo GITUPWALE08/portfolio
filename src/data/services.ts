@@ -2,28 +2,33 @@ import type { Service } from '../types';
 
 export const services: Service[] = [
   {
-    id: "systems",
-    title: "Systems & Backend Engineering",
-    description: "Design and build APIs, backend services and system architectures."
-  },
-  {
-    id: "automation",
-    title: "Automation Engineering",
-    description: "Build systems that ingest information, process it and perform actions with minimal manual intervention."
-  },
-  {
-    id: "realtime",
-    title: "Real-Time Systems",
-    description: "Design event-driven and real-time applications using WebSockets, Redis Streams and background workers."
+    id: "backend",
+    title: "Backend & API Systems",
+    description: "Design and build high-performance APIs, decoupled backend services, and scalable database architectures."
   },
   {
     id: "iot",
-    title: "IoT & Telemetry Systems",
-    description: "Build telemetry ingestion, buffering, processing and visualization systems for connected devices."
+    title: "Industrial IoT Integration",
+    description: "Build telemetry ingestion, memory-safe buffering, and visualization systems for high-frequency hardware devices."
   },
   {
-    id: "fullstack",
-    title: "Full-Stack Product Development",
-    description: "Build complete products across frontend, backend, databases and deployment."
+    id: "realtime",
+    title: "Real-Time Data Systems",
+    description: "Engineer event-driven architectures utilizing WebSockets, Redis Streams, and continuous background processing."
+  },
+  {
+    id: "automation",
+    title: "Automation & System Integration",
+    description: "Develop autonomous workflows that ingest, validate, and execute complex business logic without manual intervention."
+  },
+  {
+    id: "operational",
+    title: "Internal/Operational Platforms",
+    description: "Architect full-stack management dashboards and secure administrative tooling tailored to physical business operations."
+  },
+  {
+    id: "system-design",
+    title: "Technical System Design",
+    description: "Map complex domain requirements into strictly typed, strictly modeled software architectures prior to implementation."
   }
 ];

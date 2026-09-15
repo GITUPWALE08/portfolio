@@ -8,6 +8,7 @@ interface SEOProps {
   ogType?: 'website' | 'article';
   ogImage?: string;
   schema?: Record<string, any>;
+  noindex?: boolean;
 }
 
 export function SEO({
