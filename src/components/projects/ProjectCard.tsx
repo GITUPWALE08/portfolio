@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import type { Project } from '../../types';
 import { cn } from '../../lib/utils';
 import { motion } from 'framer-motion';
@@ -28,9 +28,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex justify-between items-start">
           <div className="flex flex-col space-y-1.5">
             <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
-            <h3 className="text-xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
-              {project.shortTitle || project.title}
-            </h3>
+            <a href={project.demoUrl} target="_blank" rel="noreferrer">
+              <h3 className="text-xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
+                {project.shortTitle || project.title}
+              </h3>
+            </a>
           </div>
           <Link to={`/projects/${project.slug}`} className="p-2 -mr-2 -mt-2 rounded-full text-muted-foreground hover:bg-muted transition-colors">
             <ArrowUpRight size={20} className="group-hover:rotate-45 transition-transform" />
@@ -64,6 +66,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}>
           {project.status.replace('-', ' ')}
         </div>
+
+        <a href={project.demoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold capitalize  bg-foreground text-background text-sm font-medium transition-colors hover:bg-foreground/90">
+              <ExternalLink className="mr-2 h-4 w-4" />
+              Live Demo
+            </a>
         
         <Link 
           to={`/projects/${project.slug}`}

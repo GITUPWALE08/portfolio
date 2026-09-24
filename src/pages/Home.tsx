@@ -52,14 +52,14 @@ export function Home() {
       <div className="flex flex-col gap-12 md:gap-16">
         <ProjectGrid 
           projects={featuredProjects} 
-          title="Featured Work" 
+          title="Featured Projects/Works" 
           description="Flagship engineering case studies spanning IIoT telemetry, real-time workflows, and systems design." 
           id="projects" 
         />
         {moreProjects.length > 0 && (
           <ProjectGrid 
             projects={moreProjects} 
-            title="More Work" 
+            title="Other Projects/Works" 
             id="more-projects"
           />
         )}
